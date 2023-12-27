@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import request
+import requests
 import os
 import argparse
 
@@ -8,7 +8,7 @@ def create_group (group_name):
     url = 'https://api.metascan-online.com/v1/groups'
     headers = {'apikey': 'YOUR_API_KEY'} # Replace with your MetaScan API key
     data = {'name': group_name}
-    response = request.post(url, headers = headers, json = data)
+    response = requests.post(url, headers = headers, json = data)
     if response.status_code == 200:
         return response.json()['data']['group_id']
     else:
@@ -19,14 +19,14 @@ def add_ip_to_group(group_id, ip_address):
     url = f'https://api.metascan-online.com/v1/groups/{group_id}/ips'
     headers = {'apikey': 'YOUR_API_KEY'} # Replace with your MetaScan API key
     data = {'ip': ip_address}
-    response = request.post(url, headers = headers, json = data)
+    response = requests.post(url, headers = headers, json = data)
     if response.status_code != 200:
         print(f"Failed to add IP address to group: {response.text}")
 
 def start_scan (group_id):
     url = f'https://api.metascan-online.com/v1/groups/{group_id}/scans'
     headers = {'apikey': 'YOUR_API_KEY'} # Replace with your MetaScan API key
-    response = request.post(url, headers = headers)
+    response = requests.post(url, headers = headers)
     if response.status_code != 200:
         print(f"Failed to start scanner: {response.text}")
 
@@ -60,3 +60,6 @@ def main():
 
             # Start scanning group
             start_scan(group_id)
+
+if __name__=="__main__":
+    main()
