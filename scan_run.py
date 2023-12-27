@@ -47,8 +47,7 @@ def main():
     files = os.listdir(dir_target)
     txt_files = [file for file in files if file.endswith('.txt')]
     for filename in txt_files:
-        filename = 'ip_addresses.txt'
-        with open(filename, 'r') as file:
+        with open(f'{dir_target}/{filename}', 'r') as file:
             ip_addresses = file.read().splitlines()
 
         # work and IP address settings
