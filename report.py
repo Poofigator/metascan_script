@@ -88,7 +88,14 @@ def main():
                 <h3 class="scanner">scanner: {row['scanner']}</h3>
                 <p class="vulnerabilityTypes">VulnerabilityTypes: {row['vulnerabilityTypes']}</p>
                 <p class="cveid">CVE: {row['CVE_id']}</p>
-                <p class="cvss">{row['score']} - {row['severity']}</p>
+                ''')
+                if float(row['score']) < 3.0:
+                    report_file.write(f'''<p class="cvss" style="color:green;">cvss: {row['score']} - {row['severity']}</p>''')
+                elif float(row['score']) < 7.0:
+                    report_file.write(f'''<p class="cvss" style="color:yellow;">cvss: {row['score']} - {row['severity']}</p>''')
+                else:
+                    report_file.write(f'''<p class="cvss" style="color:red;">cvss: {row['score']} - {row['severity']}</p>''')
+                report_file.write(f'''
                 <p class="body">body: {row['body']}</p>
                 <p class="wontFix">wontFix: {row['wontFix']}</p>
                 <p class="falsePositive">falsePositive: {row['falsePositive']}</p>
