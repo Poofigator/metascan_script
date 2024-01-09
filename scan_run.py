@@ -4,9 +4,11 @@ import requests
 import os
 import argparse
 
+API_KEY = 'YOUR_API_KEY'
+
 def create_group (group_name):
     url = 'https://api.metascan-online.com/v1/groups'
-    headers = {'apikey': 'YOUR_API_KEY'} # Replace with your MetaScan API key
+    headers = {'apikey': API_KEY} # Replace with your MetaScan API key
     data = {'name': group_name}
     response = requests.post(url, headers = headers, json = data)
     if response.status_code == 200:
@@ -17,7 +19,7 @@ def create_group (group_name):
 
 def add_ip_to_group(group_id, ip_address):
     url = f'https://api.metascan-online.com/v1/groups/{group_id}/ips'
-    headers = {'apikey': 'YOUR_API_KEY'} # Replace with your MetaScan API key
+    headers = {'apikey': API_KEY} # Replace with your MetaScan API key
     data = {'ip': ip_address}
     response = requests.post(url, headers = headers, json = data)
     if response.status_code != 200:
@@ -25,7 +27,7 @@ def add_ip_to_group(group_id, ip_address):
 
 def start_scan (group_id):
     url = f'https://api.metascan-online.com/v1/groups/{group_id}/scans'
-    headers = {'apikey': 'YOUR_API_KEY'} # Replace with your MetaScan API key
+    headers = {'apikey': API_KEY} # Replace with your MetaScan API key
     response = requests.post(url, headers = headers)
     if response.status_code != 200:
         print(f"Failed to start scanner: {response.text}")
